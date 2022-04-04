@@ -13,7 +13,7 @@ public class DoctorModel {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -36,14 +36,14 @@ public class DoctorModel {
     @Column(nullable = false)
     private String hospitalName;
 
-    @Column(nullable = false)
+    @Column
     private String imageUrl;
 
     public DoctorModel() {
 
     }
 
-    public DoctorModel(String id, String name, String email, String password, String userRole, String mobileNumber,
+    public DoctorModel(Long id, String name, String email, String password, String userRole, String mobileNumber,
             String specialistAt, String hospitalName, String imageUrl) {
         this.id = id;
         this.name = name;
@@ -56,11 +56,11 @@ public class DoctorModel {
         this.imageUrl = imageUrl;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

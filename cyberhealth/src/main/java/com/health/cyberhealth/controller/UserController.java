@@ -1,13 +1,18 @@
 package com.health.cyberhealth.controller;
 
 import com.health.cyberhealth.model.AdminModel;
+import com.health.cyberhealth.model.BookingModel;
 import com.health.cyberhealth.model.DoctorModel;
 import com.health.cyberhealth.model.UserModel;
 import com.health.cyberhealth.service.AdminService;
+import com.health.cyberhealth.service.BookingService;
 import com.health.cyberhealth.service.DoctorService;
 import com.health.cyberhealth.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +28,9 @@ public class UserController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private BookingService bookingService;
 
     @PostMapping("/signup")
     public String saveUser(@RequestBody UserModel userDetails) throws Exception {
@@ -74,6 +82,28 @@ public class UserController {
 
 
         return "Successfully LoggedIn";
+    }
+
+
+    @GetMapping("/doctor")
+    public Iterable<UserModel> getAllDoctors() {
+
+        return doctorService.fetchAllDoctors();
+    }
+
+
+    @PostMapping("/booking")
+    public String createBooking(@RequestBody BookingModel bookingModel) throws Exception {
+
+            bookingService.saveBooking(bookingModel);
+        return "Successfully Booked";
+    }
+
+    @DeleteMapping("/booking/{id}")
+    public String deleteBooking(@PathVariable Long id) {
+
+        bookingService.deleteBookingById(id);
+        return "Booking Deleted";
     }
 
 }

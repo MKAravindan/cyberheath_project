@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<UserModel, Long> {
 
     public UserModel findByEmailAndPassword(String email, String password);
 
+    public Iterable<UserModel> findByUserRole(String string);
+
 }
