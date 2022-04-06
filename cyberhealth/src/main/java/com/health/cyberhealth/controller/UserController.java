@@ -3,10 +3,14 @@ package com.health.cyberhealth.controller;
 import com.health.cyberhealth.model.AdminModel;
 import com.health.cyberhealth.model.BookingModel;
 import com.health.cyberhealth.model.DoctorModel;
+import com.health.cyberhealth.model.PrescriptionModel;
+import com.health.cyberhealth.model.ReportModel;
 import com.health.cyberhealth.model.UserModel;
 import com.health.cyberhealth.service.AdminService;
 import com.health.cyberhealth.service.BookingService;
 import com.health.cyberhealth.service.DoctorService;
+import com.health.cyberhealth.service.PrescriptionService;
+import com.health.cyberhealth.service.ReportService;
 import com.health.cyberhealth.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +35,12 @@ public class UserController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private PrescriptionService prescriptionService;
+
+    @Autowired
+    private ReportService reportService;
 
     @PostMapping("/signup")
     public String saveUser(@RequestBody UserModel userDetails) throws Exception {
@@ -80,7 +90,6 @@ public class UserController {
             
         }
 
-
         return "Successfully LoggedIn";
     }
 
@@ -95,7 +104,7 @@ public class UserController {
     @PostMapping("/booking")
     public String createBooking(@RequestBody BookingModel bookingModel) throws Exception {
 
-            bookingService.saveBooking(bookingModel);
+        bookingService.saveBooking(bookingModel);
         return "Successfully Booked";
     }
 
@@ -104,6 +113,32 @@ public class UserController {
 
         bookingService.deleteBookingById(id);
         return "Booking Deleted";
+    }
+
+    @PostMapping("/prescription")
+    public String createPrescription(@RequestBody PrescriptionModel prescriptionModel) {
+
+        prescriptionService.savePrescription(prescriptionModel);
+        return "Prescription created Successfully";
+    }
+
+    @GetMapping("/prescription/{id}")
+    public PrescriptionModel getAllPrescription(@PathVariable Long id) {
+
+        return prescriptionService.fetchAllPrescription(id);
+    }
+
+    @PostMapping("/checkupReport")
+    public String createCheckupReport(@RequestBody ReportModel reportModel) {
+
+        reportService.saveReport(reportModel);
+        return "Report created Successfully";
+    }
+
+    @GetMapping("/checkupReport/{id}")
+    public ReportModel getReport(@PathVariable Long id) {
+
+        return reportService.fetchReport(id);
     }
 
 }

@@ -1,16 +1,11 @@
 package com.health.cyberhealth.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "booking")
@@ -23,17 +18,17 @@ public class BookingModel {
     @Column
     private String bookingId;
 
-    @OneToOne()
-    private UserModel patientDetail;
+    @Column(nullable = false)
+    private String patientDetail;
 
-    @OneToOne()
-    private DoctorModel doctorDetail;
+    @Column(nullable = false)
+    private String doctorDetail;
 
     @Column(nullable = false)
     private String hospitalName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    @Column(nullable = false)
+    private String date;
 
     @Column(nullable = false)
     private String time;
@@ -44,8 +39,8 @@ public class BookingModel {
     public BookingModel() {
     }
 
-    public BookingModel(Long id, String bookingId, UserModel patientDetail, DoctorModel doctorDetail,
-            String hospitalName, Date date, String time, boolean bookingStatus) {
+    public BookingModel(Long id, String bookingId, String patientDetail, String doctorDetail,
+            String hospitalName, String date, String time, boolean bookingStatus) {
         this.id = id;
         this.bookingId = bookingId;
         this.patientDetail = patientDetail;
@@ -72,19 +67,19 @@ public class BookingModel {
         this.bookingId = bookingId;
     }
 
-    public UserModel getPatientDetail() {
+    public String getPatientDetail() {
         return patientDetail;
     }
 
-    public void setPatientDetail(UserModel patientDetail) {
+    public void setPatientDetail(String patientDetail) {
         this.patientDetail = patientDetail;
     }
 
-    public DoctorModel getDoctorDetail() {
+    public String getDoctorDetail() {
         return doctorDetail;
     }
 
-    public void setDoctorDetail(DoctorModel doctorDetail) {
+    public void setDoctorDetail(String doctorDetail) {
         this.doctorDetail = doctorDetail;
     }
 
@@ -96,11 +91,11 @@ public class BookingModel {
         this.hospitalName = hospitalName;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
